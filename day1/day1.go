@@ -6,40 +6,14 @@ import (
 	"strconv"
 	"strings"
 	"unicode"
+  "advent_of_code_2023/utils"
 )
-
-func readFile(filePath string) []byte {
-	data, err := os.ReadFile(filePath)
-
-	if err != nil {
-		panic(err)
-	}
-
-	return data
-}
-
-func readFileToArray(filepath string) []string {
-	data := readFile(filepath)
-	return strings.Split(string(data), "\n")
-}
-
-func printInput(input []string) {
-	for _, puzzle := range input {
-		fmt.Println(puzzle)
-	}
-}
 
 func main() {
 
-	// Check if a filepath argument is provided
-	if len(os.Args) < 2 {
-		fmt.Println("Usage: go run day1.go <part.txt>")
-		return
-	}
-
-	filePath := os.Args[1]
-	input := readFileToArray(filePath)
-	printInput(input)
+  filePath := utils.GetFilePathFromArgs()
+	input := utils.ReadFileToArray(filePath)
+  utils.PrintInput(input)
 
 	if strings.Contains(os.Args[1], "part1") {
 		part1(input)
