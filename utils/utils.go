@@ -3,6 +3,7 @@ package utils
 import (
 	"fmt"
 	"os"
+	"strconv"
 	"strings"
 )
 
@@ -35,4 +36,12 @@ func GetFilePathFromArgs() string {
   }
 
   return os.Args[1]
+}
+
+func DangerouslyParseInt(input string) int {
+		number, err := strconv.Atoi(input)
+		if err != nil {
+			panic(err)
+		}
+    return number
 }
