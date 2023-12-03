@@ -94,6 +94,14 @@ func part1(input []string, maxCubes cubes) {
 	fmt.Println("Part 1 sum:", sum)
 }
 
+func product(cubes map[string]int) int {
+  product := 1
+  for _, count := range cubes {
+    product *= count
+  }
+  return product
+}
+
 func part2(input []string) {
 	fmt.Println("Part 2")
 	fmt.Println("------")
@@ -117,7 +125,7 @@ func part2(input []string) {
 			}
 		}
 
-		sum += minumumCubes["red"] * minumumCubes["green"] * minumumCubes["blue"]
+    sum += product(minumumCubes)
 	}
 
 	fmt.Println("Part 2 sum:", sum)
