@@ -7,7 +7,6 @@ import (
 	"strings"
 )
 
-
 func ReadFile(filePath string) []byte {
 	data, err := os.ReadFile(filePath)
 
@@ -30,18 +29,18 @@ func PrintInput(input []string) {
 }
 
 func GetFilePathFromArgs() string {
-  if len(os.Args) < 2 {
-    fmt.Println("Usage: go run day.go <input.txt>")
-    panic("No input file provided")
-  }
+	if len(os.Args) < 2 {
+		fmt.Println("Usage: go run day.go <input.txt>")
+		panic("No input file provided")
+	}
 
-  return os.Args[1]
+	return os.Args[1]
 }
 
 func DangerouslyParseInt(input string) int {
-		number, err := strconv.Atoi(input)
-		if err != nil {
-			panic(err)
-		}
-    return number
+	number, err := strconv.Atoi(input)
+	if err != nil {
+		panic(err)
+	}
+	return number
 }
