@@ -10,7 +10,6 @@ func main() {
 	filePath := utils.GetFilePathFromArgs()
 	input := utils.ReadFileToArray(filePath)
 	part1(input)
-	part11(input)
 }
 
 type Point struct {
@@ -78,48 +77,6 @@ func checkIfAdjecentToSymbol(point Point, engine map[Point]rune) bool {
 	return false
 }
 
-func part1(input []string) {
-	engine := make(map[Point]rune)
-	utils.PrintInput(input)
-	drawEngine(engine, input)
-
-	var sum = 0
-	for y, line := range input {
-		var isAdjecentToSymbol = false
-		var currentNumber = []rune{}
-
-		for x, char := range line {
-			if unicode.IsDigit(char) {
-				currentNumber = append(currentNumber, char)
-				if isAdjecentToSymbol && x == len(line)-1 {
-					fmt.Println("Adding", string(currentNumber))
-					sum += utils.DangerouslyParseInt(string(currentNumber))
-					continue
-				}
-				if isAdjecentToSymbol {
-					continue
-				}
-			} else {
-				if len(currentNumber) > 0 && isAdjecentToSymbol {
-					fmt.Println("Adding", string(currentNumber))
-					sum += utils.DangerouslyParseInt(string(currentNumber))
-
-					isAdjecentToSymbol = false
-				}
-				currentNumber = []rune{}
-
-				continue
-			}
-
-			p := Point{x, y}
-			if checkIfAdjecentToSymbol(p, engine) {
-				isAdjecentToSymbol = true
-			}
-		}
-	}
-
-	fmt.Println("Part sum", sum)
-}
 
 func shouldAddNumberToSum(isAdjecentToSymbol bool, numberQue []rune, char rune, line string, position int) bool {
 	var isAtEndOfLine = len(line)-1 == position
@@ -131,7 +88,7 @@ func shouldClearNumberQue(numberQue []rune, char rune, line string, position int
 	return len(numberQue) > 0 && (!unicode.IsDigit(char) || isAtEndOfLine)
 }
 
-func part11(input []string) {
+func part1(input []string) {
 	engine := make(map[Point]rune)
 	utils.PrintInput(input)
 	drawEngine(engine, input)
