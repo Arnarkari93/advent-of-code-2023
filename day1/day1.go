@@ -1,19 +1,20 @@
 package main
 
 import (
+	"advent_of_code_2023/utils"
 	"fmt"
 	"os"
 	"strconv"
 	"strings"
+	"time"
 	"unicode"
-  "advent_of_code_2023/utils"
 )
 
 func main() {
 
-  filePath := utils.GetFilePathFromArgs()
+	filePath := utils.GetFilePathFromArgs()
 	input := utils.ReadFileToArray(filePath)
-  utils.PrintInput(input)
+	// utils.PrintInput(input)
 
 	if strings.Contains(os.Args[1], "part1") {
 		part1(input)
@@ -27,9 +28,14 @@ func main() {
 		part2(input, allowedNumbers)
 		return
 	}
-
+	start := time.Now()
 	part1(input)
+	elapsed := time.Since(start)
+	fmt.Println("Part 1 took", elapsed)
+	start2 := time.Now()
 	part2(input, allowedNumbers)
+	elapsed2 := time.Since(start2)
+	fmt.Println("Part 2 took", elapsed2)
 }
 
 func findFirstNumberInPuzzle(puzzle string, matchWords []string) int {
@@ -75,14 +81,9 @@ func part1(input []string) {
 		firstNumber := findFirstNumberInPuzzle(puzzle, []string{})
 		lastNumber := findLastNumberInPuzzle(puzzle, []string{})
 
-		number, err := strconv.Atoi(string(firstNumber) + string(lastNumber))
-		if err != nil {
-			fmt.Println("Error for puzzle", puzzle)
-			fmt.Println(err)
-			continue
-		}
-
-		fmt.Println(number)
+		oneNumber := strconv.Itoa(firstNumber) + strconv.Itoa(lastNumber)
+		number := utils.DangerouslyParseInt(oneNumber)
+		// fmt.Println(number)
 		sum += number
 	}
 	fmt.Println(sum)
@@ -105,8 +106,8 @@ func part2(intput []string, allowedNumbers []string) {
 			continue
 		}
 
-		fmt.Print(puzzle, ": ")
-		fmt.Println(twoDigitNumber)
+		// fmt.Print(puzzle, ": ")
+		// fmt.Println(twoDigitNumber)
 		sum += twoDigitNumber
 	}
 	fmt.Println(sum)
