@@ -17,9 +17,12 @@ func ReadFile(filePath string) []byte {
 	return data
 }
 
-func ReadFileToArray(filepath string) []string {
+func ReadFileToArray(filepath string, split string) []string {
 	data := ReadFile(filepath)
-	return strings.Split(string(data), "\n")
+  if split == "" {
+    return strings.Split(string(data), "\n")
+  }
+	return strings.Split(string(data), split)
 }
 
 func PrintInput(input []string) {
@@ -43,4 +46,14 @@ func DangerouslyParseInt(input string) int {
 		panic(err)
 	}
 	return number
+}
+
+func StringNumbersToIntArray(input string) []int {
+  input = strings.TrimSpace(input)
+  numbers := []int{}
+  for _, s := range strings.Split(input, " ") {
+    number, _ := strconv.Atoi(s)
+    numbers = append(numbers, number)
+  }
+  return numbers
 }
