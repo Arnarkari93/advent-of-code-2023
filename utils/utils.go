@@ -57,3 +57,12 @@ func StringNumbersToIntArray(input string) []int {
   }
   return numbers
 }
+
+func Every[T comparable](value T, list []T) bool {
+  for _, item := range list {
+    if item != value {
+      return false
+    }
+  }
+  return true
+}
