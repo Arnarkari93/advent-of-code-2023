@@ -66,3 +66,35 @@ func Every[T comparable](value T, list []T) bool {
   }
   return true
 }
+
+func Filter[T comparable](input []T, value T) []T {
+  filtered := []T{}
+  for _, s := range input {
+    if s != value {
+      filtered = append(filtered, s)
+    }
+  }
+  return filtered
+}
+
+func FilterMany[T comparable](input []T, values []T) []T {
+  // Create a map to store values to be filtered out
+    filterMap := make(map[T]bool)
+
+    // Add values to be filtered out to the map
+    for _, value := range values {
+        filterMap[value] = true
+    }
+
+    // Create a slice to store the filtered values
+    result := make([]T, 0, len(input))
+
+    // Iterate through the array and append non-filtered values to the result slice
+    for _, value := range input {
+        if !filterMap[value] {
+            result = append(result, value)
+        }
+    }
+
+    return result
+}
