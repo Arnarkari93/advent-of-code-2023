@@ -11,7 +11,7 @@ func main() {
 	input := utils.ReadFileToArray(filePath, "\n")
 	input = input[:len(input)-1]
 
-	Part1(input)
+	Part2(input)
 }
 
 func ParseLine(line string) (string, []int) {
@@ -36,6 +36,29 @@ func Part1(input []string) {
 	}
 
 	fmt.Println("Total", sum)
+}
+
+func Part2(input []string) {
+	sum := 0
+	for i, line := range input {
+		springs, groups := ParseLine(line)
+		m := make(map[string]int)
+    unfoldedSprings, unfoldedGroups := Unfold(springs, groups)
+		arrangements := SpringsArrangements(unfoldedSprings, unfoldedGroups, m)
+    fmt.Println(i, arrangements)
+		sum += arrangements
+	}
+	fmt.Println("Total", sum)
+}
+
+func Unfold(springs string, groups []int) (string, []int) {
+  springsRepeted := strings.Repeat(springs+"?", 5)
+  unfoldedSprings := springsRepeted[:len(springsRepeted)-1]
+  unfoldedGroups := []int{}
+  for i := 0; i < 5; i++ {
+    unfoldedGroups = append(unfoldedGroups, groups...) 
+  }
+  return unfoldedSprings, unfoldedGroups
 }
 
 func SpringsArrangements(springs string, groups []int, memo map[string]int) int {
